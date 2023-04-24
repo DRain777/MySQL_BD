@@ -1,0 +1,23 @@
+create database phone;
+
+create table phone.mobile_phones
+(
+id_phone int primary key auto_increment,
+name_phone varchar(50) not null,
+model varchar(50) not null,
+price varchar(50) not null
+);
+
+#drop table mobile_phones;
+
+
+insert phone.mobile_phones(name_phone, model, price )
+values
+('iphone 12 pro','apple','999'),
+('galaxy s21 ultra','samsung','1199'),
+('galaxy note 10+', 'samsung','700'),
+('iphone se', 'apple','399'),
+('pixel 5', 'google','700');
+
+select name_phone, model,price from mobile_phones where price < 500;
+select * from mobile_phones where model = 'samsung'; 
