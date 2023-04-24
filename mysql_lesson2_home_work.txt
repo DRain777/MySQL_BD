@@ -1,0 +1,83 @@
+#1 Используя операторы языка SQL, создайте табличку “sales”. Заполните ее данными
+#2 Сгруппируйте значений количества в 3 сегмента — меньше 100, 100-300 и больше 300.
+#3 Создайте таблицу “orders”, заполните ее значениями. Покажите “полный” статус заказа, используя оператор CASE
+#4 Чем NULL отличается от 0?
+create database sale;
+CREATE TABLE sale. sales
+ (
+  id INT PRIMARY KEY,
+  product_name VARCHAR(50),
+  quantity INT,
+  price DECIMAL(10, 2),
+  date DATE
+);
+
+INSERT  sale. sales                                      
+VALUES 
+  (1, 'Product A', 50, 10.99, '2022-01-01'),
+  (2, 'Product B', 200, 25.99, '2022-01-02'),
+  (3, 'Product C', 500, 5.99, '2022-01-03'),
+  (4, 'Product D', 75, 50.00, '2022-01-04'),
+  (5, 'Product E', 400, 15.00, '2022-01-05');
+  
+                      #2)
+SELECT 
+  CASE 
+    WHEN quantity < 100 THEN 'Less than 100' 
+    WHEN quantity >= 100 AND quantity <= 300 THEN '100-300'
+    ELSE 'More than 300' 
+  END AS quantity_range,
+  COUNT(*) AS num_sales
+FROM sale. sales
+GROUP BY quantity_range;
+                      
+                      #3)
+
+CREATE TABLE orders (
+  id INT PRIMARY KEY,
+  customer_name VARCHAR(50),
+  order_date DATE,
+  shipped_date DATE,
+  delivered_date DATE,
+  status INT
+);
+
+INSERT INTO orders VALUES 
+  (1, 'Customer A', '2022-01-01', '2022-01-05', NULL, 1),
+  (2, 'Customer B', '2022-01-02', '2022-01-03', '2022-01-07', 3),
+  (3, 'Customer C', '2022-01-03', '2022-01-05', '2022-01-06', 4),
+  (4, 'Customer D', '2022-01-04', '2022-01-07', '2022-01-10', 5),
+  (5, 'Customer E', '2022-01-05', NULL, NULL, 2);
+
+SELECT 
+  id,
+  customer_name,
+  order_date,
+  shipped_date,
+  delivered_date,
+  CASE 
+    WHEN status = 1 THEN 'Order Received' 
+    WHEN status = 2 THEN 'Order Processing' 
+    WHEN status = 3 THEN 'Order Shipped' 
+    WHEN status = 4 THEN 'Order Delivered' 
+    WHEN status = 5 THEN 'Order Completed' 
+    ELSE 'Unknown Status' 
+  END AS full_order_status
+FROM orders;
+          #4)
+ SELECT 10 + NULL; # result null 
+ SELECT 10 + 0;  # result 10 
+ /*
+ NULLможет использоваться для указания того, что значение не существует или 
+ неизвестно, а  0 является конкретным числовым значением, которое можно
+ использовать в вычислениях или сравнениях. При выполнении математических 
+ операций с NULLрезультатом всегда будет NULL, тогда как математические 
+ операции с 0результатом будут 0. */
+
+
+          
+                      
+                      
+  
+  
+  
