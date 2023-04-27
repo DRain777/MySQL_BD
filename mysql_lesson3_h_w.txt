@@ -1,0 +1,137 @@
+######      1 таблица 
+create database lesson3_h_w;
+use lesson3_h_w;
+create table sales_people_t1(     # таблица продавцы
+id integer  primary key auto_increment not null,
+snum int not null, # 
+sname varchar(20) not null,  # Имя
+city varchar(20) not null,
+comm int not null
+);
+
+ insert  sales_people_t1 (snum,sname,city,comm)
+ values
+ (1001,'pael','london', 12),
+ (1002, 'serres','san jose',13),
+ (1004, 'motica','london',11),
+ (1007, 'rifrin','barcelona',15),
+ (1003, 'axelrod','new york',10);
+ 
+ 
+ #####################################################################
+						# 2 таблица 
+ 
+ 
+ create table customers_t2(     # таблица заказчиков
+id integer  primary key auto_increment not null,
+cnum int not null, # num число 
+cname varchar(20) not null,  # Имя
+city varchar(20) not null,
+rating int not null,
+snum int not null
+);
+ 
+ 
+ 
+ insert customers_t2(cnum,cname,city,rating,snum) 
+ values
+ (2001,'hoffman','london', 100, 1001),
+ (2002, 'giovanni','rome',200,1003),
+ (2003, 'liu','sanjose',200,1002),
+ (2004, 'grass','berlin',300,1002),
+ (2006, 'clemens','london',100,1001),
+ (2008, 'cisneros','sanjose',300,1007),
+ (2007, 'pereira', 'roma',100,1004);
+ 
+SELECT * FROM customers_t2
+WHERE cname LIKE 'g%';
+
+ 
+ SELECT COUNT(DISTINCT city) AS num_cities
+FROM customers_t2
+WHERE city IS NOT NULL;
+
+SELECT city, MAX(rating) as max_rating
+FROM customers_t2
+GROUP BY city;
+
+
+
+
+########################################################################
+                          #3 таблица
+
+ create table orders_t3(     # таблица заказов 
+id integer  primary key auto_increment not null,
+onum int not null, # num число 
+amt  varchar (30) not null,  # Имя
+odate varchar(30)  not null,
+cnum int not null,
+snum int not null
+);
+
+INSERT INTO orders_t3(onum, amt, odate, cnum, snum) 
+VALUES
+(3001, 18.69, '1990-10-03', 2008, 1007),
+(3003, 767.19, '1990-10-03', 2001, 1001),
+(3002, 1900.10, '1990-10-03', 2007, 1004),
+(3005, 5160.45, '1990-10-03', 2003, 1002),
+(3006, 1098.16, '1990-10-03', 2008, 1007),
+(3009, 1713.23, '1990-10-04', 2002, 1003),
+(3007, 75.75, '1990-10-04', 2004, 1002),
+(3008, 4723.00, '1990-10-05', 2006, 1001),
+(3010, 1309.95, '1990-10-06', 2004, 1002),
+(3011, 9891.88, '1990-10-06', 2006, 1001);
+
+
+
+########################################### 2 задание
+
+create table Work(
+	id  integer primary key not null auto_increment,
+    name varchar(20)not null,
+    surname varchar(30) not null,
+    specialty varchar(30) not null,
+    seniority integer not null,
+    salary integer not null,
+    age integer not null);
+
+
+Insert into Work(name, surname, specialty, seniority, salary, age)
+values("Вася", "Васькин", "начальник", 40, 100000, 60),
+("Петя", "Петькин", "начальник", 8, 70000, 30),
+("Катя", "Каткина", "инженер", 2, 70000, 25),
+("Саша", "Сашкин", "инженер", 12, 50000, 35),
+("Иван", "Иванов", "рабочий", 40, 30000, 59),
+("Петр", "Петров", "рабочий", 20, 25000, 40),
+("Сидр", "Сидоров", "рабочий", 10, 20000, 35),
+("Антон", "Антонов", "рабочий", 8, 19000, 28),
+("Юра", "Юркин", "рабочий", 5, 15000, 25),
+("Максим", "Воронин", "рабочий", 2, 11000, 22),
+("Юра", "Галкин", "рабочий", 3, 12000, 24),
+("Люся", "Люськина", "уборщик", 10, 10000, 49);
+
+
+select * from Work order by  salary desc;
+
+select * from Work order by salary;
+
+SELECT * FROM Work ORDER BY Salary DESC LIMIT 5; 
+
+
+SELECT name, surname, seniority, salary, age
+FROM Work
+WHERE specialty = 'рабочий' AND salary > 20000
+ORDER BY seniority DESC;
+
+
+
+
+
+
+
+
+
+
+
+
