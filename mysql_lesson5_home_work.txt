@@ -1,0 +1,43 @@
+# 1.Создайте представление, в которое попадут автомобили стоимостью  до 25 000 долларов
+# 2.Изменить в существующем представлении порог для стоимости: 
+# пусть цена будет до 30 000 долларов (используя оператор ALTER VIEW) 
+# 3.Создайте представление, в котором будут только автомобили марки “Шкода” и “Ауди”
+ 
+CREATE DATABASE lesson5_home_work;
+use  lesson5_home_work;
+
+CREATE TABLE Car (
+    Id INT PRIMARY KEY AUTO_INCREMENT,
+    Name VARCHAR(50),
+    Cost INT
+);
+
+INSERT INTO Car (Name, Cost) VALUES
+('Audi', 52642),
+('Mercedes', 57127),
+('Skoda', 9000),
+('Volvo', 29000),
+('Bentley', 350000),
+('Citroen', 21000),
+('Hummer', 41400),
+('Volkswagen', 21600);
+
+select * from Car;
+
+create view cars as 
+select Cost,Name 
+from Car
+where Cost > '25000';
+select * from cars;
+
+alter view cars as 
+select Cost,Name 
+from Car
+where Cost > '30000';
+select * from cars;
+
+CREATE VIEW SkodaAudi AS
+SELECT *
+FROM Car
+WHERE Name IN ('Skoda', 'Audi');
+SELECT * FROM SkodaAudi;
