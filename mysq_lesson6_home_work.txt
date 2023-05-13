@@ -1,0 +1,55 @@
+1 Создайте функцию, которая принимает кол-во сек и форматирует их в кол-во дней, часов, минут и секунд.
+Пример: 123456 ->'1 days 10 hours 17 minutes 36 seconds '
+
+2 Выведите только четные числа от 1 до 10 включительно.
+Пример: 2,4,6,8,10 (можно сделать через шаг + 2: х = 2, х+=2)
+
+
+DELIMITER $$
+
+CREATE FUNCTION formatSeconds(seconds INT) RETURNS VARCHAR(255)
+DETERMINISTIC
+BEGIN
+    DECLARE formatted VARCHAR(255);
+    DECLARE days INT;
+    DECLARE hours INT;
+    DECLARE minutes INT;
+    
+    SET days = FLOOR(seconds / (24 * 60 * 60));
+    SET seconds = seconds - (days * 24 * 60 * 60);
+    SET hours = FLOOR(seconds / (60 * 60));
+    SET seconds = seconds - (hours * 60 * 60);
+    SET minutes = FLOOR(seconds / 60);
+    SET seconds = seconds - (minutes * 60);
+    
+    SET formatted = CONCAT(days, ' days ', hours, ' hours ', minutes, ' minutes ', seconds, ' seconds');
+    
+    RETURN formatted;
+END$$
+
+DELIMITER ;
+
+ select formatSeconds (1234567)
+
+
+                     #2
+
+DELIMITER $$
+
+CREATE PROCEDURE printEvenNumbers()
+BEGIN
+    DECLARE x INT;
+    
+    SET x = 2;
+    
+    WHILE x <= 10 DO
+        SELECT x;
+        SET x = x + 2;
+    END WHILE;
+    
+END$$
+
+DELIMITER ;
+
+CALL printEvenNumbers();
+
